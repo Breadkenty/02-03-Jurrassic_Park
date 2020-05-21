@@ -134,10 +134,12 @@ namespace _02_03_Jurrassic_Park
           Console.WriteLine($"R to remove a dinosaur");
           Console.WriteLine($"T to transfer a dinosaur to another enclosure");
           Console.WriteLine($"S to see how many dinosaurs by their diet");
+          Console.WriteLine($"D to see all the dinosaurs after a date");
+          Console.WriteLine($"e to see all dinosaurs in an enclosure");
           Console.WriteLine($"Q to quit");
 
           var input = Console.ReadKey();
-          bool goodInput = input.KeyChar == 'v' || input.KeyChar == 'a' || input.KeyChar == 'r' || input.KeyChar == 't' || input.KeyChar == 's' || input.KeyChar == 'q';  
+          bool goodInput = input.KeyChar == 'v' || input.KeyChar == 'a' || input.KeyChar == 'r' || input.KeyChar == 't' || input.KeyChar == 's' || input.KeyChar == 'q'|| input.KeyChar == 'd' || input.KeyChar == 'e';  
       
            if(input.KeyChar == 'v')
            {
@@ -214,6 +216,32 @@ namespace _02_03_Jurrassic_Park
               var dinosaursThatAreOmnivores = dinosaurs.Where(dinosaur => dinosaur.Diet == "Omnivore");
               // 6. Display the number of dinosaurs that have been selected. 
               Console.WriteLine(dinosaursThatAreOmnivores.Count());
+            }
+            if (input.KeyChar == 'd')
+            {
+              // D - Dinosaurs acquired after a given date
+              // 1. Ask the user for the dateInput
+              var dateInput = AskForDateTime($"Enter a date in the format of MM/dd/YYYY");
+              // 2. Select the dinosaurs where their acquiredDate is after the dateInput
+              var dinosaursAfterDate = dinosaurs.Where(dinosaur => dinosaur.WhenAcquired > dateInput);
+              // 3. List all of the dinosaurs selected
+              foreach (var dinosaur in dinosaursAfterDate)
+              {
+                Console.WriteLine(dinosaur.Name);
+              }
+            }
+            if (input.KeyChar == 'e')
+            {
+              // E - Dinosaurs by their enclosure
+              // 1. Ask the user for the enclosureInput
+              var enclosureInput = AskForInt($"Enter an enclosure number");
+              // 2. Select the dinosaurs where their acquiredDate is after the dateInput
+              var dinosaursByEnclosure = dinosaurs.Where(dinosaur => dinosaur.EnclosureNumber == enclosureInput);
+              // 3. List all of the dinosaurs selected
+              foreach (var dinosaur in dinosaursByEnclosure)
+              {
+                Console.WriteLine(dinosaur.Name);
+              }
             }
             if (input.KeyChar == 'q')
             {
